@@ -46,3 +46,28 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+ 
+vim.keymap.set("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>dpr", "<cmd>lua require('dap-python').test_method()<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>dprc", "<cmd>lua require('dap-python').test_class()<CR>", { noremap = true, silent = true})
+vim.keymap.set("v", "<leader>dps", "<cmd <ESC>:lua require('dap-python').debug_selection()<CR>", { noremap = true, silent = true})
+
+--local M = {}
+--M.dap = {
+--    plugin = true,
+--    n = {
+--        ["<leader>db"] = {"<cmd> DapToggleBreakpoint <CR>"}
+--    }
+--}
+--
+--M.dap_python = {
+--    plugin = true,
+--    n = {
+--        ["<leader>dpr"] = {
+--            function() 
+--                require('dap-python').test_method()
+--            end
+--        }
+--    }
+--}
+--

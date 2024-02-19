@@ -15,9 +15,13 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+require("mason-null-ls").setup({
+    ensure_installed = { "debugpy", "black" }
+})
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer'},
+  ensure_installed = {'tsserver', 'rust_analyzer', 'pyright'},
   handlers = {
     lsp.default_setup,
     lua_ls = function()
