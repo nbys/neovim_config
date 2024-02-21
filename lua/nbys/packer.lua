@@ -29,14 +29,20 @@ return require('packer').startup(function(use)
    use('tpope/vim-fugitive')
    use('mg979/vim-visual-multi', {branch = 'master'})
    
+   -- Python
    use('nvimtools/none-ls.nvim')
    use('jay-babu/mason-null-ls.nvim')
    use('mfussenegger/nvim-dap')
    use('mfussenegger/nvim-dap-python')
    use('rcarriga/nvim-dap-ui')
 
+   -- Go
+   use('leoluz/nvim-dap-go')
+
+
    use({'williamboman/mason.nvim'})
    use({'williamboman/mason-lspconfig.nvim'})
+   use({'onsails/lspkind.nvim'})
    use {
 	   'VonHeikemen/lsp-zero.nvim',
 	   branch = 'v3.x',
@@ -54,4 +60,6 @@ return require('packer').startup(function(use)
 	   }
    }
 
-end) 
+   use('github/copilot.vim')
+
+end)

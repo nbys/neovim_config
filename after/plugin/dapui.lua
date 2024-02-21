@@ -3,15 +3,15 @@ local ui_config = {
   icons = { expanded = "\u{1F843}", collapsed = "\u{1F842}", current_frame = "\u{2192}" },
   controls = {
     icons = {
-      pause = "\u{23F8}",
-      play = "\u{23F5}",
-      step_into = "\u{21B4}",
-      step_over = "\u{21B7}",
-      step_out = "\u{21E1}",
-      step_back = "\u{21B6}",
-      run_last = "\u{1F5D8}",
-      terminate = "\u{1F671}",
-      disconnect = "\u{23FB}"
+      pause = "\u{270F}\u{FE0F}",
+      play = "\u{25B6}\u{FE0F}",
+      step_into = "\u{23EC}\u{FE0F}",
+      step_over = "\u{23E9}\u{FE0F}",
+      step_out = "\u{23EB}\u{FE0F}",
+      step_back = "\u{1F53C}\u{FE0F}",
+      run_last = "\u{23ED}\u{FE0F}",
+      terminate = "\u{1F6D1}\u{FE0F}",
+      disconnect = "\u{26A1}\u{FE0F}",
     }
   }
 }

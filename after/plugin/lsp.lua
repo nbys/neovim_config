@@ -31,16 +31,9 @@ require('mason-lspconfig').setup({
   }
 })
 
---local cmp = require('cmp')
---local cmp_select = {behavior = cmp.SelectBehavior.Select}
---local cmp_mappings = lsp.defaults.cmp_mappings({
---  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
---  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
---  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
---  ["<C-Space>"] = cmp.mapping.complete(),
---})
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
+local lspkind = require("lspkind")
 
 local cmp_mappings = lsp.defaults.cmp_mappings({ 
     -- `Enter` key to confirm completion
@@ -58,7 +51,21 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
 })
 
-cmp.setup({ mapping = cmp_mappings})
+cmp.setup({ 
+    mapping = cmp_mappings, 
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = "text",
+            preset = 'codicons',
+            ellipsis_char = '...',
+            show_labelsDetails = true,
+        }),
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    }
+})
 
 --cmp_mappings['<Tab>'] = nil
 --cmp_mappings['<S-Tab>'] = nil
