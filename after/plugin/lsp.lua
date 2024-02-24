@@ -21,6 +21,7 @@ require("mason-null-ls").setup({
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
+  auto_installation = false,
   ensure_installed = {'gopls', 'tsserver', 'rust_analyzer', 'pyright'},
   handlers = {
     lsp.default_setup,
@@ -55,7 +56,7 @@ cmp.setup({
     mapping = cmp_mappings, 
     formatting = {
         format = lspkind.cmp_format({
-            mode = "text",
+            mode = "symbol_text",
             preset = 'codicons',
             ellipsis_char = '...',
             show_labelsDetails = true,

@@ -39,6 +39,9 @@ return require('packer').startup(function(use)
    -- Go
    use('leoluz/nvim-dap-go')
 
+   -- Rust
+   use("rust-lang/rust.vim")
+
 
    use({'williamboman/mason.nvim'})
    use({'williamboman/mason-lspconfig.nvim'})
