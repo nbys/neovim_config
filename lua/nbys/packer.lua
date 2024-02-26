@@ -28,7 +28,8 @@ return require('packer').startup(function(use)
    use('mbbill/undotree')
    use('tpope/vim-fugitive')
    use('mg979/vim-visual-multi', {branch = 'master'})
-   
+   use('sindrets/diffview.nvim') 
+
    -- Python
    use('nvimtools/none-ls.nvim')
    use('jay-babu/mason-null-ls.nvim')

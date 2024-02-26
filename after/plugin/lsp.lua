@@ -1,5 +1,20 @@
 local lsp = require('lsp-zero')
 
+local augroupFormat = vim.api.nvim_create_augroup("LspFormatting", {})
+
+local formattingOnAttach = function(client, bufnr)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroupFormat, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroupFormat,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({ async = false })
+      end,
+    })
+  end
+end
+
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
@@ -28,6 +43,11 @@ require('mason-lspconfig').setup({
     lua_ls = function()
       local lua_opts = lsp.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
+    end,
+    rust_analyzer = function()
+      require('lspconfig').rust_analyzer.setup({
+          on_attach = formattingOnAttach
+      })
     end,
   }
 })
