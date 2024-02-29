@@ -104,6 +104,25 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
+  vim.g.diagnostics_visible = true
+  local function toggle_diagnostics()
+    if vim.g.diagnostics_visible then
+      vim.g.diagnostics_visible = false
+      vim.diagnostic.disable()
+    else
+      vim.g.diagnostics_visible = true
+      vim.diagnostic.enable()
+    end
+  end
+ 
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set(
+    "n",
+    "<leader>l",
+    toggle_diagnostics,
+    vim.tbl_extend("force", bufopts, { desc = "✨lsp toggle diagnostics" })
+  )
+
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
