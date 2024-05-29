@@ -28,7 +28,7 @@ return require('packer').startup(function(use)
    use('mbbill/undotree')
    use('tpope/vim-fugitive')
    use('mg979/vim-visual-multi', {branch = 'master'})
-   use('sindrets/diffview.nvim') 
+   use('sindrets/diffview.nvim')
 
    -- Python
    use('nvimtools/none-ls.nvim')
@@ -38,7 +38,9 @@ return require('packer').startup(function(use)
    use('rcarriga/nvim-dap-ui')
 
    -- Go
+   use('nvim-neotest/nvim-nio')
    use('leoluz/nvim-dap-go')
+
 
    -- Rust
    use("rust-lang/rust.vim")
