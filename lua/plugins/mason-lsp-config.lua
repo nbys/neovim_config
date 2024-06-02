@@ -2,7 +2,7 @@ local opts = {
 	ensure_installed = {
 		"efm",
 		"bashls",
-        --"lua_ls",
+        "lua_ls",
         "pyright",
         "jsonls",
         "ruff",

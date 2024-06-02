@@ -14,24 +14,25 @@ local config = function()
 	end
 
 	-- lua
-	-- lspconfig.lua_ls.setup({
-	-- 	capabilities = capabilities,
-	-- 	on_attach = on_attach,
-	-- 	settings = { -- custom settings for lua
-	-- 		Lua = {
-	-- 			-- make the language server recognize "vim" global
-	-- 			diagnostics = {
-	-- 				globals = { "vim" },
-	-- 			},
-	-- 			workspace = {
-	-- 				-- make language server aware of runtime files
-	-- 				library = {
-	-- 					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-	-- 					[vim.fn.stdpath("config") .. "/lua"] = true,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
+	lspconfig.lua_ls.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = { -- custom settings for lua
+			Lua = {
+				-- make the language server recognize "vim" global
+				diagnostics = {
+					globals = { "vim" },
+				},
+				workspace = {
+					-- make language server aware of runtime files
+					library = {
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.stdpath("config") .. "/lua"] = true,
+					},
+				},
+			},
+		},
+	})
 
 	-- -- json
 	-- lspconfig.jsonls.setup({
@@ -127,8 +128,8 @@ local config = function()
 	-- 	},
 	-- })
 	--
-	-- local luacheck = require("efmls-configs.linters.luacheck")
-	-- local stylua = require("efmls-configs.formatters.stylua")
+	local luacheck = require("efmls-configs.linters.luacheck")
+	local stylua = require("efmls-configs.formatters.stylua")
 	-- local flake8 = require("efmls-configs.linters.flake8")
 	-- local black = require("efmls-configs.formatters.black")
 	-- local eslint = require("efmls-configs.linters.eslint")
@@ -141,11 +142,12 @@ local config = function()
 	-- local cpplint = require("efmls-configs.linters.cpplint")
 	-- local clangformat = require("efmls-configs.formatters.clang_format")
     
-    local ruff = require("efmls-configs.formatters.ruff")
+    local ruff_linter = require('efmls-configs.linters.ruff')
+    local ruff_formatter = require('efmls-configs.formatters.ruff')
 	-- configure efm server
 	lspconfig.efm.setup({
 		filetypes = {
-			-- "lua",
+			"lua",
 			"python",
 			-- "json",
 			-- "jsonc",
@@ -174,9 +176,9 @@ local config = function()
 		},
 		settings = {
 			languages = {
-				-- lua = { luacheck, stylua },
-				   python = { ruff },
-				-- typescript = { eslint, prettier_d },
+				lua = { luacheck, stylua },
+                python = { ruff_linter, ruff_formatter },
+                -- typescript = { eslint, prettier_d },
 				--json = { eslint, fixjson },
 				--jsonc = { eslint, fixjson },
 				--sh = { shellcheck, shfmt },
