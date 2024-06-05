@@ -57,7 +57,22 @@ local config = function()
 			},
 		},
 	})
-	--
+
+	lspconfig.gopls.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = {
+			pyright = {
+				disableOrganizeImports = false,
+				analysis = {
+					useLibraryCodeForTypes = true,
+					autoSearchPaths = true,
+					diagnosticMode = "workspace",
+					autoImportCompletions = true,
+				},
+			},
+		},
+	})
 	-- -- typescript
 	-- lspconfig.tsserver.setup({
 	-- 	on_attach = on_attach,
@@ -130,6 +145,9 @@ local config = function()
 	--
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
+	local golangci_lint = require("efmls-configs.linters.golangci_lint")
+	local gofmt = require("efmls-configs.formatters.gofmt")
+	local goimports = require("efmls-configs.formatters.goimports")
 	-- local flake8 = require("efmls-configs.linters.flake8")
 	-- local black = require("efmls-configs.formatters.black")
 	-- local eslint = require("efmls-configs.linters.eslint")
@@ -141,14 +159,15 @@ local config = function()
 	-- local solhint = require("efmls-configs.linters.solhint")
 	-- local cpplint = require("efmls-configs.linters.cpplint")
 	-- local clangformat = require("efmls-configs.formatters.clang_format")
-    
-    local ruff_linter = require('efmls-configs.linters.ruff')
-    local ruff_formatter = require('efmls-configs.formatters.ruff')
+
+	local ruff_linter = require("efmls-configs.linters.ruff")
+	local ruff_formatter = require("efmls-configs.formatters.ruff")
 	-- configure efm server
 	lspconfig.efm.setup({
 		filetypes = {
 			"lua",
 			"python",
+			"go",
 			-- "json",
 			-- "jsonc",
 			-- "sh",
@@ -177,8 +196,9 @@ local config = function()
 		settings = {
 			languages = {
 				lua = { luacheck, stylua },
-                python = { ruff_linter, ruff_formatter },
-                -- typescript = { eslint, prettier_d },
+				python = { ruff_linter, ruff_formatter },
+				go = { gofmt, goimports, golangci_lint },
+				-- typescript = { eslint, prettier_d },
 				--json = { eslint, fixjson },
 				--jsonc = { eslint, fixjson },
 				--sh = { shellcheck, shfmt },
