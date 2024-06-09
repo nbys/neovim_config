@@ -73,6 +73,28 @@ local config = function()
 			},
 		},
 	})
+
+	lspconfig.golangci_lint_ls.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		default_config = {
+			cmd = { "golangci-lint-langserver" },
+			root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
+			init_options = {
+				command = {
+					"golangci-lint",
+					"run",
+					"--enable-all",
+					"--disable",
+					"lll",
+					"--out-format",
+					"json",
+					"--issues-exit-code=1",
+				},
+			},
+		},
+	})
+
 	-- -- typescript
 	-- lspconfig.tsserver.setup({
 	-- 	on_attach = on_attach,
@@ -145,7 +167,7 @@ local config = function()
 	--
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
-	local golangci_lint = require("efmls-configs.linters.golangci_lint")
+	--local golangci_lint = require("efmls-configs.linters.golangci_lint")
 	local gofmt = require("efmls-configs.formatters.gofmt")
 	local goimports = require("efmls-configs.formatters.goimports")
 	-- local flake8 = require("efmls-configs.linters.flake8")
@@ -186,7 +208,7 @@ local config = function()
 			-- "cpp",
 		},
 		init_options = {
-			documentFormatting = true,
+		documentFormatting = true,
 			documentRangeFormatting = true,
 			hover = true,
 			documentSymbol = true,
@@ -197,7 +219,7 @@ local config = function()
 			languages = {
 				lua = { luacheck, stylua },
 				python = { ruff_linter, ruff_formatter },
-				go = { gofmt, goimports, golangci_lint },
+				go = { gofmt, goimports },
 				-- typescript = { eslint, prettier_d },
 				--json = { eslint, fixjson },
 				--jsonc = { eslint, fixjson },
