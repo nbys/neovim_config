@@ -95,6 +95,33 @@ local config = function()
 		},
 	})
 
+	lspconfig.rust_analyzer.setup({
+		capabilities = capabilities,
+		---on_attach = on_attach,
+		on_attach = function(client, bufnr)
+			-- Call your custom on_attach function
+			on_attach(client, bufnr)
+
+			-- Enable format on save if supported
+			if client.server_capabilities.documentFormattingProvider then
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					buffer = bufnr,
+					callback = function()
+						vim.lsp.buf.format({ timeout_ms = 100 })
+					end,
+				})
+			end
+		end,
+		filetypes = { "rust" },
+		root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+		settings = {
+			["rust-analyzer"] = {
+				cargo = {
+					allFeatures = true,
+				},
+			},
+		},
+	})
 	-- -- typescript
 	-- lspconfig.tsserver.setup({
 	-- 	on_attach = on_attach,
@@ -167,9 +194,9 @@ local config = function()
 	--
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
-	--local golangci_lint = require("efmls-configs.linters.golangci_lint")
 	local gofmt = require("efmls-configs.formatters.gofmt")
 	local goimports = require("efmls-configs.formatters.goimports")
+	--local golangci_lint = require("efmls-configs.linters.golangci_lint")
 	-- local flake8 = require("efmls-configs.linters.flake8")
 	-- local black = require("efmls-configs.formatters.black")
 	-- local eslint = require("efmls-configs.linters.eslint")
@@ -190,6 +217,7 @@ local config = function()
 			"lua",
 			"python",
 			"go",
+			"rust",
 			-- "json",
 			-- "jsonc",
 			-- "sh",
@@ -208,7 +236,7 @@ local config = function()
 			-- "cpp",
 		},
 		init_options = {
-		documentFormatting = true,
+			documentFormatting = true,
 			documentRangeFormatting = true,
 			hover = true,
 			documentSymbol = true,
