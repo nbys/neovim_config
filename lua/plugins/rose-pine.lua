@@ -53,8 +53,8 @@ return {
 		},
 
 		highlight_groups = {
-			Visual = { bg = "#397973" },
-			PmenuMatchSel = { bg = "#397973" },
+			Visual = { bg = "#29514d" },
+			-- PmenuMatchSel = { bg = "#397973" },
 			-- Comment = { fg = "foam" },
 			-- VertSplit = { fg = "muted", bg = "muted" },
 		},
