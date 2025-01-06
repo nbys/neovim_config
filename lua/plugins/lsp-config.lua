@@ -122,28 +122,41 @@ local config = function()
 			},
 		},
 	})
-	-- -- typescript
-	-- lspconfig.tsserver.setup({
-	-- 	on_attach = on_attach,
-	-- 	capabilities = capabilities,
-	-- 	filetypes = {
-	-- 		"typescript",
-	-- 		"javascript",
-	-- 		"typescriptreact",
-	-- 		"javascriptreact",
-	-- 	},
-	-- 	commands = {
-	-- 		TypeScriptOrganizeImports = typescript_organise_imports,
-	-- 	},
-	-- 	settings = {
-	-- 		typescript = {
-	-- 			indentStyle = "space",
-	-- 			indentSize = 2,
-	-- 		},
-	-- 	},
-	-- 	root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-	-- })
-	--
+	-- typescript
+	lspconfig.ts_ls.setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+		filetypes = {
+			"typescript",
+			"javascript",
+			"typescriptreact",
+			"javascriptreact",
+		},
+		commands = {
+			TypeScriptOrganizeImports = typescript_organise_imports,
+		},
+		settings = {
+			typescript = {
+				indentStyle = "space",
+				indentSize = 2,
+			},
+		},
+		root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+	})
+	-- SAP CDS
+	lspconfig.cds_lsp.setup({
+		cmd = { "cds-lsp", "--stdio" },
+		filetypes = { "cds" }, -- Add other filetypes if needed
+		root_dir = lspconfig.util.root_pattern(".cdsrc.json", "package.json", ".git", "db", "srv"),
+		settings = {
+			cds = {
+				lint = {
+					strict = true, -- Enable strict linting if desired
+				},
+			},
+		},
+		on_attach = on_attach,
+	})
 	-- -- bash
 	-- lspconfig.bashls.setup({
 	-- 	capabilities = capabilities,
@@ -199,8 +212,8 @@ local config = function()
 	--local golangci_lint = require("efmls-configs.linters.golangci_lint")
 	-- local flake8 = require("efmls-configs.linters.flake8")
 	-- local black = require("efmls-configs.formatters.black")
-	-- local eslint = require("efmls-configs.linters.eslint")
-	-- local prettier_d = require("efmls-configs.formatters.prettier_d")
+	local eslint = require("efmls-configs.linters.eslint")
+	local prettier_d = require("efmls-configs.formatters.prettier_d")
 	-- local fixjson = require("efmls-configs.formatters.fixjson")
 	-- local shellcheck = require("efmls-configs.linters.shellcheck")
 	-- local shfmt = require("efmls-configs.formatters.shfmt")
@@ -254,7 +267,7 @@ local config = function()
 				--sh = { shellcheck, shfmt },
 				--javascript = { eslint, prettier_d },
 				--javascriptreact = { eslint, prettier_d },
-				--typescriptreact = { eslint, prettier_d },
+				typescriptreact = { eslint, prettier_d },
 				--svelte = { eslint, prettier_d },
 				--vue = { eslint, prettier_d },
 				--markdown = { prettier_d },
